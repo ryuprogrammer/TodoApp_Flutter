@@ -22,8 +22,8 @@ dev_dependencies:
   riverpod_lint:
   freezed_annotation:
   freezed:
-  json_annotation: ^4.8.1
-  json_serializable: ^6.7.1
+  json_annotation:
+  json_serializable:
   flutter_lints: ^3.0.0
 
 flutter:
