@@ -9,9 +9,9 @@ part of 'todomodel.dart';
 _$TodoModelImpl _$$TodoModelImplFromJson(Map<String, dynamic> json) =>
     _$TodoModelImpl(
       id: (json['id'] as num).toInt(),
-      createAt: json['createAt'] as String,
-      body: json['body'] as String,
-      isDone: json['isDone'] as bool,
+      createAt: json['createAt'] as String?,
+      body: json['body'] as String?,
+      isDone: json['isDone'] as bool?,
     );
 
 Map<String, dynamic> _$$TodoModelImplToJson(_$TodoModelImpl instance) =>
