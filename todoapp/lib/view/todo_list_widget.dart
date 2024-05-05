@@ -9,37 +9,46 @@ class TodoListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todo = ref.watch(todoNotifierProvider);
 
-    return todo.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) {
-        // エラーが発生した場合、コンソールにエラーメッセージを出力
-        print('エラーが発生しました: ${error.toString()}');
-        return Text('エラーが発生しました: ${error.toString()}');
-      },
-      data: (data) {
-        return ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            // Todoの内容
-            final todoData = data[index].body;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Todo List'),
+      ),
+      body: todo.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) {
+          // エラーが発生した場合、コンソールにエラーメッセージを出力
+          print('エラーが発生しました: ${error.toString()}');
+          return Text('エラーが発生しました: ${error.toString()}');
+        },
+        data: (data) {
+          return ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              // Todoの内容
+              final todoData = data[index].body;
 
-            return Card(
-              child: Row(
-                children: <Widget>[
-                  // 完了/未完了のボタン
-                  TextButton(onPressed: () {}, child: Icon(Icons.check_box)),
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    // 完了/未完了のボタン
+                    TextButton(onPressed: () {}, child: Icon(Icons.check_box)),
 
-                  // Todoの内容を表示
-                  Text(
-                    todoData ?? '',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                    // Todoの内容を表示
+                    Text(
+                      todoData ?? '',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
