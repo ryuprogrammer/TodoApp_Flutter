@@ -26,7 +26,10 @@ class TodoListWidget extends ConsumerWidget {
             return Card(
               child: Row(
                 children: <Widget>[
+                  // 完了/未完了のボタン
                   TextButton(onPressed: () {}, child: Icon(Icons.check_box)),
+
+                  // Todoの内容を表示
                   Text(
                     todoData ?? '',
                     style: TextStyle(fontSize: 20),
