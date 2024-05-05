@@ -9,16 +9,34 @@ class TodoListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todo = ref.watch(todoNotifierProvider);
 
-    final listWidget = todo.when(
-      loading: () => const Text('読み込み中'),
+    return todo.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stackTrace) {
         // エラーが発生した場合、コンソールにエラーメッセージを出力
         print('エラーが発生しました: ${error.toString()}');
-        return Text('error: ${error.toString()}');
+        return Text('エラーが発生しました: ${error.toString()}');
       },
-      data: (data) => Text('$data'),
-    );
+      data: (data) {
+        return ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            // Todoの内容
+            final todoData = data[index].body;
 
-    return listWidget;
+            return Card(
+              child: Row(
+                children: <Widget>[
+                  TextButton(onPressed: () {}, child: Icon(Icons.check_box)),
+                  Text(
+                    todoData ?? '',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
