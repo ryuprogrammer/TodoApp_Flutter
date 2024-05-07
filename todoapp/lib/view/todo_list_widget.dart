@@ -30,12 +30,17 @@ class TodoListWidget extends ConsumerWidget {
             itemBuilder: (context, index) {
               // Todoの内容
               final todoData = data[index].body;
+              final todoID = data[index].id;
 
               return Card(
                 child: Row(
                   children: <Widget>[
                     // 完了/未完了のボタン
-                    TextButton(onPressed: () {}, child: Icon(Icons.check_box)),
+                    TextButton(
+                        onPressed: () {
+                          todoNotifier.updateDone(todoID, true);
+                        },
+                        child: const Icon(Icons.check_box)),
 
                     // Todoの内容を表示
                     Text(
