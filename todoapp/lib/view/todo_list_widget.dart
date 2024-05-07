@@ -56,62 +56,65 @@ class TodoListWidget extends ConsumerWidget {
                   );
                 },
                 child: Card(
-                  child: Row(
-                    children: <Widget>[
-                      // 完了/未完了のボタン
-                      TextButton(
-                        onPressed: () {
-                          todoNotifier.updateDone(todoID, todoIsDone);
-                        },
-                        child: (todoIsDone)
-                            ? const Icon(Icons.radio_button_checked)
-                            : const Icon(Icons.radio_button_unchecked),
-                      ),
-                      // Todoの内容を表示
-                      Text(
-                        todoData ?? '',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: // 削除ボタン
-                            TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: <Widget>[
+                        // 完了/未完了のボタン
+                        TextButton(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: ((context) {
-                                return SimpleDialog(
-                                  title: const Text('タスクを削除'),
-                                  contentPadding: const EdgeInsets.all(20),
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('戻る'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            todoNotifier.deleteTodo(todoID);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('削除'),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              }),
-                            );
+                            todoNotifier.updateDone(todoID, todoIsDone);
                           },
-                          child: const Icon(Icons.more_horiz),
+                          child: (todoIsDone)
+                              ? const Icon(Icons.radio_button_checked)
+                              : const Icon(Icons.radio_button_unchecked),
                         ),
-                      ),
-                    ],
+                        // Todoの内容を表示
+                        Text(
+                          todoData ?? '',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: // 削除ボタン
+                              TextButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: ((context) {
+                                  return SimpleDialog(
+                                    title: const Text('タスクを削除'),
+                                    contentPadding: const EdgeInsets.all(20),
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('戻る'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              todoNotifier.deleteTodo(todoID);
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('削除'),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              );
+                            },
+                            child: const Icon(Icons.more_horiz),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
