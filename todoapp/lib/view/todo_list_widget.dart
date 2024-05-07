@@ -20,8 +20,6 @@ class TodoListWidget extends ConsumerWidget {
       body: todoStream.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) {
-          // エラーが発生した場合、コンソールにエラーメッセージを出力
-          print('エラーが発生しました: ${error.toString()}');
           return Text('エラーが発生しました: ${error.toString()}');
         },
         data: (data) {
@@ -48,7 +46,7 @@ class TodoListWidget extends ConsumerWidget {
                     // Todoの内容を表示
                     Text(
                       todoData ?? '',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ],
                 ),
@@ -67,8 +65,9 @@ class TodoListWidget extends ConsumerWidget {
                 contentPadding: const EdgeInsets.all(10),
                 children: [
                   TextFormField(
-                    onFieldSubmitted: (value) {
-                      todoNotifier.addTodo(value);
+                    onFieldSubmitted: (value) async {
+                      await todoNotifier.addTodo(
+                          value); // todoNotifier を使用して addTodo メソッドを呼び出す
                     },
                   ),
                 ],
