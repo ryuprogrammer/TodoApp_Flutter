@@ -13,6 +13,9 @@ class TodoListWidget extends ConsumerWidget {
     // データの変更をするノティファイア
     final todoNotifier = ref.read(todoListNotifierProvider.notifier);
 
+    // 編集中のテキスト
+    String text = '';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('ToDo リスト'),
@@ -69,6 +72,42 @@ class TodoListWidget extends ConsumerWidget {
                         todoData ?? '',
                         style: const TextStyle(fontSize: 20),
                       ),
+                      // 削除ボタン
+                      TextButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: ((context) {
+                              return SimpleDialog(
+                                title: const Text('タスクを削除'),
+                                contentPadding: const EdgeInsets.all(20),
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('戻る'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          todoNotifier.deleteTodo(todoID);
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('削除'),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }),
+                          );
+                        },
+                        child: const Icon(Icons.more_horiz),
+                      ),
                     ],
                   ),
                 ),
@@ -87,9 +126,18 @@ class TodoListWidget extends ConsumerWidget {
                 contentPadding: const EdgeInsets.all(10),
                 children: [
                   TextFormField(
-                    onFieldSubmitted: (value) async {
-                      await todoNotifier.addTodo(value);
+                    onChanged: (value) {
+                      text = value;
                     },
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      // データ追加
+                      await todoNotifier.addTodo(text);
+                      // 閉じる
+                      Navigator.pop(context);
+                    },
+                    child: const Text('追加'),
                   ),
                 ],
               );
@@ -97,7 +145,7 @@ class TodoListWidget extends ConsumerWidget {
           );
         },
         icon: new Icon(Icons.add),
-        label: Text('新規'),
+        label: const Text('新規'),
       ),
     );
   }
