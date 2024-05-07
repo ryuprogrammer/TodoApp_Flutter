@@ -13,7 +13,4 @@ class TodoNotifier extends _$TodoNotifier {
     return supabaseInstance.from('todos').stream(primaryKey: ['id']).map(
         (event) => event.map((e) => TodoModel.fromJson(e)).toList());
   }
-
-  // データを変更する関数
-  // 以下に記述
 }

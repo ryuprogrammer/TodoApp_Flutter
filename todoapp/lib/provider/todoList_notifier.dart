@@ -18,7 +18,7 @@ class TodoListNotifier extends _$TodoListNotifier {
   }
 
   // データ更新メソッド: Todoの内容
-  Future<void> uodateTodo(dynamic todoID, String _body) async {
+  Future<void> uodateTodo(int todoID, String _body) async {
     final todoRepositry = ref.read(todoListNotifierProvider);
     await todoRepositry
         .from('todos')
@@ -26,15 +26,17 @@ class TodoListNotifier extends _$TodoListNotifier {
   }
 
   // データ更新メソッド: 完了ボタン用
-  Future<void> updateDone(dynamic todoID, bool isDone) async {
+  Future<void> updateDone(int todoID, bool? isDone) async {
+    final changedIsDone = isDone ?? false;
+
     final todoRepositry = ref.read(todoListNotifierProvider);
     await todoRepositry
         .from('todos')
-        .update({'is_done': isDone}).match({'id': todoID});
+        .update({'is_done': !changedIsDone}).match({'id': todoID});
   }
 
   // データ削除メソッド
-  Future<void> deleteTodo(dynamic noteID) async {
+  Future<void> deleteTodo(int noteID) async {
     final todoRepositry = ref.read(todoListNotifierProvider);
     await todoRepositry.from('notes').delete().match({'id': noteID});
   }
