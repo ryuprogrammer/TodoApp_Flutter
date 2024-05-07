@@ -20,6 +20,8 @@ class TodoListWidget extends ConsumerWidget {
       body: todoStream.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) {
+          print('エラーが発生しました: ${error.toString()}');
+          print('stackTrace: ${stackTrace.toString()}');
           return Text('エラーが発生しました: ${error.toString()}');
         },
         data: (data) {
@@ -33,26 +35,47 @@ class TodoListWidget extends ConsumerWidget {
               // 完了か
               final todoIsDone = data[index].isDone;
 
-              return Card(
-                child: Row(
-                  children: <Widget>[
-                    // 完了/未完了のボタン
-                    TextButton(
-                      onPressed: () {
-                        print('チェック');
-                        print('でーた: ${data[index]}');
-                        todoNotifier.updateDone(todoID, todoIsDone);
-                      },
-                      child: (todoIsDone ?? false)
-                          ? const Icon(Icons.radio_button_checked)
-                          : const Icon(Icons.radio_button_unchecked),
-                    ),
-                    // Todoの内容を表示
-                    Text(
-                      todoData ?? '',
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  ],
+              return GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: ((context) {
+                      return SimpleDialog(
+                        title: Text('編集するタスク: ${todoData}'),
+                        contentPadding: const EdgeInsets.all(10),
+                        children: [
+                          TextFormField(
+                            onFieldSubmitted: (value) async {
+                              await todoNotifier.uodateTodo(todoID, value);
+                            },
+                          ),
+                        ],
+                      );
+                    }),
+                  );
+                },
+                child: Card(
+                  child: Row(
+                    children: <Widget>[
+                      // 完了/未完了のボタン
+                      TextButton(
+                        onPressed: () {
+                          print('${data[index]}');
+                          print('チェック');
+                          print('でーた: ${data[index]}');
+                          todoNotifier.updateDone(todoID, todoIsDone);
+                        },
+                        child: (todoIsDone ?? false)
+                            ? const Icon(Icons.radio_button_checked)
+                            : const Icon(Icons.radio_button_unchecked),
+                      ),
+                      // Todoの内容を表示
+                      Text(
+                        todoData ?? '',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

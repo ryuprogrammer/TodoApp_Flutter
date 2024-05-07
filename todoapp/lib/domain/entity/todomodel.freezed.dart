@@ -23,7 +23,7 @@ mixin _$TodoModel {
   int get id => throw _privateConstructorUsedError;
   String? get createAt => throw _privateConstructorUsedError;
   String? get body => throw _privateConstructorUsedError;
-  bool get isDone => throw _privateConstructorUsedError;
+  bool? get isDone => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $TodoModelCopyWith<$Res> {
   factory $TodoModelCopyWith(TodoModel value, $Res Function(TodoModel) then) =
       _$TodoModelCopyWithImpl<$Res, TodoModel>;
   @useResult
-  $Res call({int id, String? createAt, String? body, bool isDone});
+  $Res call({int id, String? createAt, String? body, bool? isDone});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
     Object? id = null,
     Object? createAt = freezed,
     Object? body = freezed,
-    Object? isDone = null,
+    Object? isDone = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -70,10 +70,10 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String?,
-      isDone: null == isDone
+      isDone: freezed == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ) as $Val);
   }
 }
@@ -86,7 +86,7 @@ abstract class _$$TodoModelImplCopyWith<$Res>
       __$$TodoModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? createAt, String? body, bool isDone});
+  $Res call({int id, String? createAt, String? body, bool? isDone});
 }
 
 /// @nodoc
@@ -103,7 +103,7 @@ class __$$TodoModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? createAt = freezed,
     Object? body = freezed,
-    Object? isDone = null,
+    Object? isDone = freezed,
   }) {
     return _then(_$TodoModelImpl(
       id: null == id
@@ -118,10 +118,10 @@ class __$$TodoModelImplCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String?,
-      isDone: null == isDone
+      isDone: freezed == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ));
   }
 }
@@ -145,7 +145,7 @@ class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
   @override
   final String? body;
   @override
-  final bool isDone;
+  final bool? isDone;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -198,7 +198,7 @@ abstract class _TodoModel implements TodoModel {
       {required final int id,
       required final String? createAt,
       required final String? body,
-      required final bool isDone}) = _$TodoModelImpl;
+      required final bool? isDone}) = _$TodoModelImpl;
 
   factory _TodoModel.fromJson(Map<String, dynamic> json) =
       _$TodoModelImpl.fromJson;
@@ -210,7 +210,7 @@ abstract class _TodoModel implements TodoModel {
   @override
   String? get body;
   @override
-  bool get isDone;
+  bool? get isDone;
   @override
   @JsonKey(ignore: true)
   _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>
