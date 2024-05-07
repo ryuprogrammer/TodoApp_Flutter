@@ -11,13 +11,11 @@ class TodoNotifier extends _$TodoNotifier {
     return Supabase.instance.client;
   }
 
-  // データを変更する関数
-  // 以下に記述
   // データ追加メソッド
-  // Future<void> addTodo(String _body) async {
-  //   final todoRepositry =
-  //   await todoRepositry.from('todos').insert;
-  // }
+  Future<void> addTodo(String _body) async {
+    final todoRepositry = ref.read(todoNotifierProvider);
+    await todoRepositry.from('todos').insert({'body': _body});
+  }
 
   // データ更新メソッド
 
