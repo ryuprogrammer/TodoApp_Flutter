@@ -27,6 +27,7 @@ class TodoListNotifier extends _$TodoListNotifier {
 
   // データ更新メソッド: 完了ボタン用
   Future<void> updateDone(int todoID, bool? isDone) async {
+    print('dbでーた: ${build().from('todos')}');
     final changedIsDone = isDone ?? false;
     print('${isDone}');
 

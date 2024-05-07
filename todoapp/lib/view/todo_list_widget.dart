@@ -33,7 +33,7 @@ class TodoListWidget extends ConsumerWidget {
               // id
               final todoID = data[index].id;
               // 完了か
-              final todoIsDone = data[index].isDone;
+              final todoIsDone = data[index].is_done;
 
               return GestureDetector(
                 onTap: () {
@@ -93,8 +93,7 @@ class TodoListWidget extends ConsumerWidget {
                 children: [
                   TextFormField(
                     onFieldSubmitted: (value) async {
-                      await todoNotifier.addTodo(
-                          value); // todoNotifier を使用して addTodo メソッドを呼び出す
+                      await todoNotifier.addTodo(value);
                     },
                   ),
                 ],
