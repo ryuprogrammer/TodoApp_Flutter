@@ -10,7 +10,7 @@ class TodoModel with _$TodoModel {
       {required int id,
       required String? created_at,
       required String? body,
-      required bool? is_done}) = _TodoModel;
+      required bool is_done}) = _TodoModel;
 
   factory TodoModel.fromJson(Map<String, dynamic> json) =>
       _$TodoModelFromJson(json);

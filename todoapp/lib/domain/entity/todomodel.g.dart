@@ -11,7 +11,7 @@ _$TodoModelImpl _$$TodoModelImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       created_at: json['created_at'] as String?,
       body: json['body'] as String?,
-      is_done: json['is_done'] as bool?,
+      is_done: json['is_done'] as bool,
     );
 
 Map<String, dynamic> _$$TodoModelImplToJson(_$TodoModelImpl instance) =>

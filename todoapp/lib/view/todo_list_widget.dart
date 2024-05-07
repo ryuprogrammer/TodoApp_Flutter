@@ -45,8 +45,8 @@ class TodoListWidget extends ConsumerWidget {
                         contentPadding: const EdgeInsets.all(10),
                         children: [
                           TextFormField(
-                            onFieldSubmitted: (value) async {
-                              await todoNotifier.uodateTodo(todoID, value);
+                            onFieldSubmitted: (value) {
+                              todoNotifier.updateTodo(todoID, value);
                             },
                           ),
                         ],
@@ -65,7 +65,7 @@ class TodoListWidget extends ConsumerWidget {
                           print('でーた: ${data[index]}');
                           todoNotifier.updateDone(todoID, todoIsDone);
                         },
-                        child: (todoIsDone ?? false)
+                        child: (todoIsDone)
                             ? const Icon(Icons.radio_button_checked)
                             : const Icon(Icons.radio_button_unchecked),
                       ),
