@@ -46,7 +46,25 @@ class TodoListWidget extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: ((context) {
+              return SimpleDialog(
+                title: const Text('新しいタスク'),
+                contentPadding: const EdgeInsets.all(10),
+                children: [
+                  TextFormField(
+                    onFieldSubmitted: (value) async {
+                      await 
+                      // dbに保存
+                    },
+                  ),
+                ],
+              );
+            }),
+          );
+        },
         child: Icon(Icons.add),
       ),
     );
