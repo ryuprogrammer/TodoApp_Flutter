@@ -74,10 +74,10 @@ class TodoListWidget extends ConsumerWidget {
                           todoData ?? '',
                           style: const TextStyle(fontSize: 20),
                         ),
+                        // 削除ボタン
                         Align(
                           alignment: Alignment.centerRight,
-                          child: // 削除ボタン
-                              TextButton(
+                          child: TextButton(
                             onPressed: () {
                               showDialog(
                                 context: context,
