@@ -57,7 +57,7 @@ class TodoListWidget extends ConsumerWidget {
                 },
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
