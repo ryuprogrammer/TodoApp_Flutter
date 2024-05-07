@@ -30,7 +30,10 @@ class TodoListWidget extends ConsumerWidget {
             itemBuilder: (context, index) {
               // Todoの内容
               final todoData = data[index].body;
+              // id
               final todoID = data[index].id;
+              // 完了か
+              final todoIsDone = data[index].isDone;
 
               return Card(
                 child: Row(
@@ -38,7 +41,7 @@ class TodoListWidget extends ConsumerWidget {
                     // 完了/未完了のボタン
                     TextButton(
                         onPressed: () {
-                          todoNotifier.updateDone(todoID, true);
+                          todoNotifier.updateDone(todoID, todoIsDone);
                         },
                         child: const Icon(Icons.check_box)),
 
