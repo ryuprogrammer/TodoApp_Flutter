@@ -59,59 +59,61 @@ class TodoListWidget extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         // 完了/未完了のボタン
-                        TextButton(
-                          onPressed: () {
-                            todoNotifier.updateDone(todoID, todoIsDone);
-                          },
-                          child: (todoIsDone)
-                              ? const Icon(Icons.radio_button_checked)
-                              : const Icon(Icons.radio_button_unchecked),
-                        ),
-                        // Todoの内容を表示
-                        Text(
-                          todoData ?? '',
-                          style: const TextStyle(fontSize: 20),
+                        Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                todoNotifier.updateDone(todoID, todoIsDone);
+                              },
+                              child: (todoIsDone)
+                                  ? const Icon(Icons.radio_button_checked)
+                                  : const Icon(Icons.radio_button_unchecked),
+                            ),
+                            // Todoの内容を表示
+                            Text(
+                              todoData ?? '',
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          ],
                         ),
                         // 削除ボタン
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: ((context) {
-                                  return SimpleDialog(
-                                    title: const Text('タスクを削除'),
-                                    contentPadding: const EdgeInsets.all(20),
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('戻る'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              todoNotifier.deleteTodo(todoID);
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('削除'),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                }),
-                              );
-                            },
-                            child: const Icon(Icons.more_horiz),
-                          ),
+                        TextButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: ((context) {
+                                return SimpleDialog(
+                                  title: const Text('タスクを削除'),
+                                  contentPadding: const EdgeInsets.all(20),
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('戻る'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            todoNotifier.deleteTodo(todoID);
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('削除'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              }),
+                            );
+                          },
+                          child: const Icon(Icons.more_horiz),
                         ),
                       ],
                     ),
