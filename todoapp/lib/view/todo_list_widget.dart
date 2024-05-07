@@ -38,11 +38,15 @@ class TodoListWidget extends ConsumerWidget {
                   children: <Widget>[
                     // 完了/未完了のボタン
                     TextButton(
-                        onPressed: () {
-                          todoNotifier.updateDone(todoID, todoIsDone);
-                        },
-                        child: const Icon(Icons.check_box)),
-
+                      onPressed: () {
+                        print('チェック');
+                        print('でーた: ${data[index]}');
+                        todoNotifier.updateDone(todoID, todoIsDone);
+                      },
+                      child: (todoIsDone ?? false)
+                          ? const Icon(Icons.radio_button_checked)
+                          : const Icon(Icons.radio_button_unchecked),
+                    ),
                     // Todoの内容を表示
                     Text(
                       todoData ?? '',
