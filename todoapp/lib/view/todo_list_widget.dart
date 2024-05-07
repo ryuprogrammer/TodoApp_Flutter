@@ -72,41 +72,44 @@ class TodoListWidget extends ConsumerWidget {
                         todoData ?? '',
                         style: const TextStyle(fontSize: 20),
                       ),
-                      // 削除ボタン
-                      TextButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: ((context) {
-                              return SimpleDialog(
-                                title: const Text('タスクを削除'),
-                                contentPadding: const EdgeInsets.all(20),
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('戻る'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          todoNotifier.deleteTodo(todoID);
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('削除'),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              );
-                            }),
-                          );
-                        },
-                        child: const Icon(Icons.more_horiz),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: // 削除ボタン
+                            TextButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: ((context) {
+                                return SimpleDialog(
+                                  title: const Text('タスクを削除'),
+                                  contentPadding: const EdgeInsets.all(20),
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('戻る'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            todoNotifier.deleteTodo(todoID);
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('削除'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              }),
+                            );
+                          },
+                          child: const Icon(Icons.more_horiz),
+                        ),
                       ),
                     ],
                   ),
