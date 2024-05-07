@@ -20,8 +20,6 @@ class TodoListWidget extends ConsumerWidget {
       body: todoStream.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) {
-          print('エラーが発生しました: ${error.toString()}');
-          print('stackTrace: ${stackTrace.toString()}');
           return Text('エラーが発生しました: ${error.toString()}');
         },
         data: (data) {
@@ -60,9 +58,6 @@ class TodoListWidget extends ConsumerWidget {
                       // 完了/未完了のボタン
                       TextButton(
                         onPressed: () {
-                          print('${data[index]}');
-                          print('チェック');
-                          print('でーた: ${data[index]}');
                           todoNotifier.updateDone(todoID, todoIsDone);
                         },
                         child: (todoIsDone)
@@ -82,7 +77,7 @@ class TodoListWidget extends ConsumerWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           showDialog(
             context: context,
@@ -101,7 +96,8 @@ class TodoListWidget extends ConsumerWidget {
             }),
           );
         },
-        child: const Icon(Icons.add),
+        icon: new Icon(Icons.add),
+        label: Text('新規'),
       ),
     );
   }
