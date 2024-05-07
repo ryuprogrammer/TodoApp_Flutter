@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,27 +19,32 @@ class TodoListNotifier extends _$TodoListNotifier {
   }
 
   // データ更新メソッド: Todoの内容
-  Future<void> updateTodo(int todoID, String body) async {
-    final todoRepository = build();
-    await todoRepository
-        .from('todos')
-        .update({'body': body}).match({'id': todoID});
+  Future<void> updateTodo(BuildContext context, int todoID, String body) async {
+    // コンテキストを使用する処理
+    try {
+      // ダイアログを閉じる
+      Navigator.of(context).pop();
+
+      final todoRepository = build();
+      await todoRepository
+          .from('todos')
+          .update({'body': body}).match({'id': todoID});
+    } catch (e) {
+      print('エラーが発生しました: $e');
+    }
   }
 
   // データ更新メソッド: 完了ボタン用
   Future<void> updateDone(int todoID, bool isDone) async {
     final todoRepository = build();
     await todoRepository
-        .from('todos') // テーブル名が'todos'であることを確認
+        .from('todos')
         .update({'is_done': !isDone}).match({'id': todoID});
   }
 
   // データ削除メソッド
   Future<void> deleteTodo(int todoID) async {
     final todoRepository = build();
-    await todoRepository
-        .from('todos')
-        .delete()
-        .match({'id': todoID}); // テーブル名を'todos'に修正
+    await todoRepository.from('todos').delete().match({'id': todoID});
   }
 }
