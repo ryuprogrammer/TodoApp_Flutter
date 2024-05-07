@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todoapp/provider/todoList_notifier.dart';
 import 'package:todoapp/provider/todo_notifier.dart';
 
 class TodoListWidget extends ConsumerWidget {
@@ -7,11 +8,14 @@ class TodoListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // データを監視するストリームプロバイダー
     final todoStream = ref.watch(todoNotifierProvider);
+    // データの変更をするノティファイア
+    final todoNotifier = ref.read(todoListNotifierProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo List'),
+        title: const Text('ToDo リスト'),
       ),
       body: todoStream.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -55,17 +59,16 @@ class TodoListWidget extends ConsumerWidget {
                 contentPadding: const EdgeInsets.all(10),
                 children: [
                   TextFormField(
-                      // onFieldSubmitted: (value) async {
-                      //   await
-                      //   // dbに保存
-                      // },
-                      ),
+                    onFieldSubmitted: (value) {
+                      todoNotifier.addTodo(value);
+                    },
+                  ),
                 ],
               );
             }),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
