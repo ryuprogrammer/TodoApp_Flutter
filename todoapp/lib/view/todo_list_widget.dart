@@ -7,13 +7,13 @@ class TodoListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todo = ref.watch(todoNotifierProvider);
+    final todoStream = ref.watch(todoNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Todo List'),
       ),
-      body: todo.when(
+      body: todoStream.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) {
           // エラーが発生した場合、コンソールにエラーメッセージを出力
